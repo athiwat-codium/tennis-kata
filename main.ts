@@ -2,33 +2,40 @@
 // Your implementations
 // 
 
-function updateGameScore(player1Points: number, player2Points: number) {
+export function updateGameScore(player1Points: number, player2Points: number) {
     const score = {
         player1: player1Points,
         player2: player2Points
     };
     return score
 }
-function decideGameWinner(score: {}) {
+export function decideGameWinner(score: {}) {
         return score['player1'] > score['player2'] ? 'Player 1' : 'Player 2'
 }
-function printScore([player1Points, player2Points]) {
+export function printScore([player1Points, player2Points]) {
     const score = { player1: player1Points, player2: player2Points };
-    if (score['player1'] >= 3 && score['player2'] >= 3) {
-        if (score['player1'] === score['player2']) {
+    const scorePlayer1 = score['player1']
+    const scorePlayer2 = score['player2']
+    const scoreName = ['love', 'fiteen', 'thirty', 'forty']
+    if (scorePlayer1 >= 3 && scorePlayer2 >= 3) {
+        if (scorePlayer1 === scorePlayer2) {
             return 'deuce'
+        } else if (scorePlayer1 - scorePlayer2 === 1 ) {
+            return scorePlayer1 > scorePlayer2 ? 'advantage player 1' : 'advantage player 2'
+        } else if (scorePlayer2 - scorePlayer1 === 1 ) {
+            return scorePlayer2 > scorePlayer1 ? 'advantage player 2' : 'advantage player 1'
         } else {
-            return score['player1'] > score['player2'] ? 'advantage player 1' : 'advantage player 2'
+            return scorePlayer1 > scorePlayer2 ? 'Player 1' : 'Player 2'
         }
-    } else if (score['player1'] === 2 && score['player2'] === 2) {
-        return 'thirty - thirty'
+    } else if (scorePlayer1 === scorePlayer2) {
+        return scoreName[scorePlayer1] + ' - ' + scoreName[scorePlayer2] 
     } else {
-            return decideGameWinner(score)
+            return scoreName[scorePlayer1] + ' - ' + scoreName[scorePlayer2]
     }
 }
 
-const player1Points = 4;
-const player2Points = 3;
+const player1Points = 8;
+const player2Points = 9;
 
 // when
 const score = printScore([player1Points, player2Points]);
